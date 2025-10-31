@@ -25,6 +25,8 @@ function operate(num1, operator, num2) {
   num1 = prompt(`Insert first number`, ``);
   operator = prompt(`Insert operator`, ``);
   num2 = prompt(`Insert second number`, ``);
+  num1 = parseInt(num1);
+  num2 = parseInt(num2);
 
   switch (operator) {
     case `+`:
@@ -43,3 +45,5 @@ function operate(num1, operator, num2) {
 
   alert(result);
 }
+
+operate();
