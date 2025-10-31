@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: "Google Sans Code", monospace;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  margin: 0;
+  gap: 20px;
+}
+
+.calculator {
+  background-color: #1a1a1a;
+  border: 10px solid slateblue;
+  border-radius: 20px;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  aspect-ratio: 2/1;
+}
+
+.display .display-text {
+  color: white;
+}
+
+.display .display-text div {
+  margin: 10px 20px;
+}
+
+.display .display-text p {
+  margin: 5px;
+}
+
+.display .display-operation {
+  display: flex;
+}
+
+.display .display-operation p {
+  font-size: 2rem;
+  font-weight: lighter;
+}
+
+.display .display-result {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.display .display-result p {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 50vw;
+  margin: 5px;
+}
+
+.buttons button {
+  flex: 1 0 20%;
+  margin: 2px;
+  aspect-ratio: 1/1;
+  border: none;
+  border-radius: 10px;
+  background-color: slateblue;
+  color: white;
+  font-size: 2rem;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.11);
+}
+
+.buttons button.zero,
+.buttons button.result {
+  aspect-ratio: 2/1;
+}

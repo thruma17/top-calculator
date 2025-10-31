@@ -5,11 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
   </head>
   <body>
     <header id="header" class="header">
-      <h1>Online Basic Math Calculator</h1>
+      <h1>Basic Math Calculator</h1>
     </header>
+    <main id="calculator" class="calculator">
+      <div id="display" class="display">
+        <div id="display-text" class="display-text">
+          <div id="display-operation" class="display-operation">
+            <p id="first-num">8</p>
+            <p id="operator">x</p>
+            <p id="second-num">5</p>
+          </div>
+          <div id="display-result" class="display-result">
+          <p>40</p>
+        </div>
+      </div>
+      <div id="buttons" class="buttons">
+        <button>+</button>
+        <button>-</button>
+        <button>x</button>
+        <button>÷</button>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>⬅️​</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>​🗑️​</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>,</button>
+        <button class="zero">0</button>
+        <button class="result">=</button>
+      </div>
+    </main>
+    <footer></footer>
     <script src="script.js"></script>
   </body>
 </html>
