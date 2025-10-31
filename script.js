@@ -46,4 +46,4 @@ function operate(num1, operator, num2) {
   alert(result);
 }
 
-operate();
+// operate();
