@@ -19,3 +19,10 @@ function multiply(a, b) {
 function divide(a, b) {
   return (result = a / b);
 }
+
+// calculator operation function
+function operate(num1, operator, num2) {
+  num1 = prompt(`Insert first number`, ``);
+  operator = prompt(`Insert operator`, ``);
+  num2 = prompt(`Insert second number`, ``);
+}
