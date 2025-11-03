@@ -1,10 +1,11 @@
 console.clear();
 
 // buttons variables
+const allBtns = document.querySelectorAll(`button`);
 const numberBtn = document.querySelectorAll(`.number`);
 const operatorBtn = document.querySelectorAll(`.operator`);
-const clearBtn = document.querySelector(`.clear`);
 const deleteBtn = document.querySelector(`.delete`);
+const clearBtn = document.querySelector(`.clear`);
 const resultBtn = document.querySelector(`.result`);
 const firstNumDisplay = document.getElementById(`first-num`);
 const secondNumDisplay = document.getElementById(`second-num`);
@@ -55,6 +56,15 @@ let clickedOperator = ``;
 let result = 0;
 
 // event listeners
+allBtns.forEach((btn) => {
+  btn.addEventListener(`mousedown`, () => {
+    btn.style.backgroundColor = `#2d2371`;
+  });
+  btn.addEventListener(`mouseup`, () => {
+    btn.style.backgroundColor = `slateblue`;
+  });
+});
+
 numberBtn.forEach((number) => {
   number.addEventListener(`click`, () => {
     if (clickedOperator === ``) {
@@ -75,16 +85,32 @@ numberBtn.forEach((number) => {
 
 operatorBtn.forEach((operator) => {
   operator.addEventListener(`click`, () => {
-    clickedOperator = operator.value;
-    operatorDisplay.textContent = clickedOperator;
-
-    console.log(
-      `FirstNum: ${firstNum} Operator: ${clickedOperator} SecondNum: ${secondNum}`
-    );
+    if (firstNum) {
+      clickedOperator = operator.value;
+      operatorDisplay.textContent = clickedOperator;
+    }
   });
 });
 
-resultBtn.addEventListener(`click`, () => {
-  result = operate(parseInt(firstNum), clickedOperator, parseInt(secondNum));
-  resultDisplay.textContent = result;
-});
+resultBtn.addEventListener(`click`, displayResult);
+
+// clearBtn.addEventListener(`click`, resetCalculator());
+
+// functions
+function displayResult() {
+  if (firstNum && clickedOperator && secondNum) {
+    result = operate(parseInt(firstNum), clickedOperator, parseInt(secondNum));
+    resultDisplay.textContent = result;
+  }
+}
+
+// function resetCalculator() {
+//   firstNum = ``;
+//   firstNumDisplay.textContent = ``;
+//   secondNum = ``;
+//   secondNumDisplay.textContent = ``;
+//   clickedOperator = ``;
+//   operatorDisplay.textContent = clickedOperator;
+//   result = 0;
+//   resultDisplay.textContent = ``;
+// }
