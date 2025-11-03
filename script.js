@@ -1,17 +1,18 @@
 console.clear();
 
-// math variables
-let firstNum = ``;
-let secondNum = ``;
-let clickedOperator = ``;
-let result = 0;
-
 // buttons variables
-const numberBtn = document.querySelectorAll(".number");
-const operatorBtn = document.querySelectorAll(".operator");
-const clearBtn = document.querySelector(".clear");
-const deleteBtn = document.querySelector(".delete");
-const showResult = document.querySelector(".result");
+const numberBtn = document.querySelectorAll(`.number`);
+const operatorBtn = document.querySelectorAll(`.operator`);
+const clearBtn = document.querySelector(`.clear`);
+const deleteBtn = document.querySelector(`.delete`);
+const btnResult = document.querySelector(`.result`);
+const firstOperand = document.getElementById(`first-num`);
+const secondOperand = document.getElementById(`second-num`);
+const operatorDisplay = document.getElementById(`operator`);
+
+firstOperand.textContent = `0`;
+secondOperand.textContent = ``;
+operatorDisplay.textContent = ``;
 
 // basic math functions
 function add(a, b) {
@@ -45,10 +46,20 @@ function operate(num1, operator, num2) {
   }
 }
 
+// math variables
+let firstNum = ``;
+let secondNum = ``;
+let clickedOperator = ``;
+let result = 0;
+
 // event listeners
 numberBtn.forEach((number) => {
   number.addEventListener(`click`, () => {
-    console.log(number.value);
+    firstNum += number.value;
+    firstOperand.textContent = firstNum;
+    if (firstNum > 999999999) {
+      firstOperand.textContent = `ERROR`;
+    }
   });
 });
 
