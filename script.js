@@ -85,10 +85,16 @@ numberBtn.forEach((number) => {
 
 operatorBtn.forEach((operator) => {
   operator.addEventListener(`click`, () => {
-    if (firstNum) {
-      clickedOperator = operator.value;
-      operatorDisplay.textContent = clickedOperator;
+    if (firstNum === ``) {
+      firstNum = result;
+      firstNumDisplay.textContent = firstNum;
     }
+    if (secondNum) {
+      displayResult();
+      newOperation();
+    }
+    clickedOperator = operator.value;
+    operatorDisplay.textContent = clickedOperator;
   });
 });
 
@@ -97,20 +103,26 @@ resultBtn.addEventListener(`click`, displayResult);
 // clearBtn.addEventListener(`click`, resetCalculator());
 
 // functions
+function newOperation() {
+  firstNum = result;
+  firstNumDisplay.textContent = firstNum;
+  secondNum = ``;
+  secondNumDisplay.textContent = ``;
+  operatorDisplay.textContent = clickedOperator;
+}
+
+function clearOperation() {
+  firstNum = ``;
+  firstNumDisplay.textContent = ``;
+  secondNum = ``;
+  secondNumDisplay.textContent = ``;
+  operatorDisplay.textContent = ``;
+}
+
 function displayResult() {
   if (firstNum && clickedOperator && secondNum) {
     result = operate(parseInt(firstNum), clickedOperator, parseInt(secondNum));
     resultDisplay.textContent = result;
+    clearOperation();
   }
 }
-
-// function resetCalculator() {
-//   firstNum = ``;
-//   firstNumDisplay.textContent = ``;
-//   secondNum = ``;
-//   secondNumDisplay.textContent = ``;
-//   clickedOperator = ``;
-//   operatorDisplay.textContent = clickedOperator;
-//   result = 0;
-//   resultDisplay.textContent = ``;
-// }
