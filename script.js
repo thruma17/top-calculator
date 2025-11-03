@@ -131,6 +131,7 @@ function resetCalculator() {
 function displayResult() {
   if (firstNum && clickedOperator && secondNum) {
     result = operate(parseInt(firstNum), clickedOperator, parseInt(secondNum));
+    result = Math.round(result * 1000) / 1000;
     resultDisplay.textContent = result;
     clearOperation();
   }
