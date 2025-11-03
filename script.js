@@ -1,5 +1,3 @@
-console.clear();
-
 // buttons variables
 const allBtns = document.querySelectorAll(`button`);
 const numberBtn = document.querySelectorAll(`.number`);
@@ -141,8 +139,13 @@ function resetCalculator() {
 function displayResult() {
   if (firstNum && clickedOperator && secondNum) {
     result = operate(parseInt(firstNum), clickedOperator, parseInt(secondNum));
-    result = Math.round(result * 1000) / 1000;
+    roundResult(result);
     resultDisplay.textContent = result;
     clearOperation();
   }
+}
+
+// helper functions
+function roundResult(number) {
+  Math.round(number * 1000) / 1000;
 }
