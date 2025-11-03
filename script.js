@@ -5,14 +5,16 @@ const numberBtn = document.querySelectorAll(`.number`);
 const operatorBtn = document.querySelectorAll(`.operator`);
 const clearBtn = document.querySelector(`.clear`);
 const deleteBtn = document.querySelector(`.delete`);
-const btnResult = document.querySelector(`.result`);
-const firstOperand = document.getElementById(`first-num`);
-const secondOperand = document.getElementById(`second-num`);
+const resultBtn = document.querySelector(`.result`);
+const firstNumDisplay = document.getElementById(`first-num`);
+const secondNumDisplay = document.getElementById(`second-num`);
 const operatorDisplay = document.getElementById(`operator`);
+const resultDisplay = document.getElementById(`display-text-result`);
 
-firstOperand.textContent = `0`;
-secondOperand.textContent = ``;
+firstNumDisplay.textContent = ``;
+secondNumDisplay.textContent = ``;
 operatorDisplay.textContent = ``;
+resultDisplay.textContent = `0`;
 
 // basic math functions
 function add(a, b) {
@@ -37,10 +39,10 @@ function operate(num1, operator, num2) {
     case `-`:
       return subtract(num1, num2);
       break;
-    case `*`:
+    case `x`:
       return multiply(num1, num2);
       break;
-    case `/`:
+    case `÷`:
       return divide(num1, num2);
       break;
   }
@@ -55,16 +57,29 @@ let result = 0;
 // event listeners
 numberBtn.forEach((number) => {
   number.addEventListener(`click`, () => {
-    firstNum += number.value;
-    firstOperand.textContent = firstNum;
-    if (firstNum > 999999999) {
-      firstOperand.textContent = `ERROR`;
+    if (clickedOperator === ``) {
+      firstNum += number.value;
+      firstNumDisplay.textContent = firstNum;
+      if (firstNum > 999999999) {
+        firstNumDisplay.textContent = `ERROR`;
+      }
+    } else {
+      secondNum += number.value;
+      secondNumDisplay.textContent = secondNum;
+      if (secondNum > 999999999) {
+        secondNumDisplay.textContent = `ERROR`;
+      }
     }
   });
 });
 
 operatorBtn.forEach((operator) => {
   operator.addEventListener(`click`, () => {
-    console.log(operator.textContent);
+    clickedOperator = operator.value;
+    operatorDisplay.textContent = clickedOperator;
+
+    console.log(
+      `FirstNum: ${firstNum} Operator: ${clickedOperator} SecondNum: ${secondNum}`
+    );
   });
 });
