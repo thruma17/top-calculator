@@ -29,28 +29,20 @@ function divide(a, b) {
 
 // calculator operation function
 function operate(num1, operator, num2) {
-  num1 = prompt(`Insert first number`, ``);
-  operator = prompt(`Insert operator`, ``);
-  num2 = prompt(`Insert second number`, ``);
-  num1 = parseInt(num1);
-  num2 = parseInt(num2);
-
   switch (operator) {
     case `+`:
-      add(num1, num2);
+      return add(num1, num2);
       break;
     case `-`:
-      subtract(num1, num2);
+      return subtract(num1, num2);
       break;
     case `*`:
-      multiply(num1, num2);
+      return multiply(num1, num2);
       break;
     case `/`:
-      divide(num1, num2);
+      return divide(num1, num2);
       break;
   }
-
-  alert(result);
 }
 
 // operate();
