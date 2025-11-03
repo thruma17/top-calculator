@@ -51,3 +51,9 @@ numberBtn.forEach((number) => {
     console.log(number.value);
   });
 });
+
+operatorBtn.forEach((operator) => {
+  operator.addEventListener(`click`, () => {
+    console.log(operator.textContent);
+  });
+});
