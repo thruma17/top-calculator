@@ -28,6 +28,9 @@ function multiply(a, b) {
   return a * b;
 }
 function divide(a, b) {
+  if (parseInt(b) === 0) {
+    return `REALLY???`;
+  }
   return a / b;
 }
 
@@ -53,7 +56,9 @@ function operate(num1, operator, num2) {
 let firstNum = ``;
 let secondNum = ``;
 let clickedOperator = ``;
-let result = 0;
+
+const DEFAULT_RESULT = 0;
+let result = DEFAULT_RESULT;
 
 // event listeners
 allBtns.forEach((btn) => {
@@ -100,7 +105,7 @@ operatorBtn.forEach((operator) => {
 
 resultBtn.addEventListener(`click`, displayResult);
 
-// clearBtn.addEventListener(`click`, resetCalculator());
+clearBtn.addEventListener(`click`, resetCalculator);
 
 // functions
 function newOperation() {
@@ -117,6 +122,10 @@ function clearOperation() {
   secondNum = ``;
   secondNumDisplay.textContent = ``;
   operatorDisplay.textContent = ``;
+}
+
+function resetCalculator() {
+  window.location.reload();
 }
 
 function displayResult() {
