@@ -72,17 +72,27 @@ allBtns.forEach((btn) => {
 
 numberBtn.forEach((number) => {
   number.addEventListener(`click`, () => {
-    if (clickedOperator === ``) {
+    if (result === 0) {
+      if (clickedOperator === ``) {
+        firstNum += number.value;
+        firstNumDisplay.textContent = firstNum;
+        if (firstNum > 99999) {
+          firstNumDisplay.textContent = `ERROR`;
+        }
+      } else {
+        secondNum += number.value;
+        secondNumDisplay.textContent = secondNum;
+        if (secondNum > 99999) {
+          secondNumDisplay.textContent = `ERROR`;
+        }
+      }
+    } else {
+      result = 0;
+      resultDisplay.textContent = `0`;
       firstNum += number.value;
       firstNumDisplay.textContent = firstNum;
       if (firstNum > 99999) {
         firstNumDisplay.textContent = `ERROR`;
-      }
-    } else {
-      secondNum += number.value;
-      secondNumDisplay.textContent = secondNum;
-      if (secondNum > 99999) {
-        secondNumDisplay.textContent = `ERROR`;
       }
     }
   });
