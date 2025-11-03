@@ -1,9 +1,9 @@
 console.clear();
 
 // math variables
-let num1 = ``;
-let num2 = ``;
-let operator = ``;
+let firstNum = ``;
+let secondNum = ``;
+let clickedOperator = ``;
 let result = 0;
 
 // buttons variables
@@ -45,6 +45,9 @@ function operate(num1, operator, num2) {
   }
 }
 
-// operate();
-
 // event listeners
+numberBtn.forEach((number) => {
+  number.addEventListener(`click`, () => {
+    console.log(number.value);
+  });
+});
