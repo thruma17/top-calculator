@@ -60,13 +60,13 @@ numberBtn.forEach((number) => {
     if (clickedOperator === ``) {
       firstNum += number.value;
       firstNumDisplay.textContent = firstNum;
-      if (firstNum > 999999999) {
+      if (firstNum > 99999) {
         firstNumDisplay.textContent = `ERROR`;
       }
     } else {
       secondNum += number.value;
       secondNumDisplay.textContent = secondNum;
-      if (secondNum > 999999999) {
+      if (secondNum > 99999) {
         secondNumDisplay.textContent = `ERROR`;
       }
     }
@@ -82,4 +82,9 @@ operatorBtn.forEach((operator) => {
       `FirstNum: ${firstNum} Operator: ${clickedOperator} SecondNum: ${secondNum}`
     );
   });
+});
+
+resultBtn.addEventListener(`click`, () => {
+  result = operate(parseInt(firstNum), clickedOperator, parseInt(secondNum));
+  resultDisplay.textContent = result;
 });
