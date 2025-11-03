@@ -15,16 +15,16 @@ const showResult = document.querySelector(".result");
 
 // basic math functions
 function add(a, b) {
-  return (result = a + b);
+  return a + b;
 }
 function subtract(a, b) {
-  return (result = a - b);
+  return a - b;
 }
 function multiply(a, b) {
-  return (result = a * b);
+  return a * b;
 }
 function divide(a, b) {
-  return (result = a / b);
+  return a / b;
 }
 
 // calculator operation function
