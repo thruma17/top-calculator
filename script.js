@@ -1,10 +1,18 @@
+// math variables
+let firstNum = ``;
+let secondNum = ``;
+let clickedOperator = ``;
+
+const DEFAULT_RESULT = 0;
+let result = DEFAULT_RESULT;
+
 // buttons variables
 const allBtns = document.querySelectorAll(`button`);
 const numberBtn = document.querySelectorAll(`.number`);
 const operatorBtn = document.querySelectorAll(`.operator`);
-const deleteBtn = document.querySelector(`.delete`);
-const clearBtn = document.querySelector(`.clear`);
-const resultBtn = document.querySelector(`.result`);
+const deleteBtn = document.getElementById(`btnDel`);
+const clearBtn = document.getElementById(`btnClear`);
+const resultBtn = document.getElementById(`btnResult`);
 const firstNumDisplay = document.getElementById(`first-num`);
 const secondNumDisplay = document.getElementById(`second-num`);
 const operatorDisplay = document.getElementById(`operator`);
@@ -49,14 +57,6 @@ function operate(num1, operator, num2) {
       break;
   }
 }
-
-// math variables
-let firstNum = ``;
-let secondNum = ``;
-let clickedOperator = ``;
-
-const DEFAULT_RESULT = 0;
-let result = DEFAULT_RESULT;
 
 // event listeners
 allBtns.forEach((btn) => {
