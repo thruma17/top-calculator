@@ -33,35 +33,28 @@ body {
 }
 
 .display .display-text {
+  min-height: 130px;
+  padding: 15px 0;
   color: white;
-}
-
-.display .display-text div {
-  margin: 5px 10px;
 }
 
 .display .display-text p {
   margin: 0;
+  padding: 5px 10px;
+  font-size: 2rem;
+  font-weight: lighter;
 }
 
 .display .display-operation {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-}
-
-.display .display-operation p {
-  font-size: 2rem;
-  font-weight: lighter;
+  min-height: 50px;
 }
 
 .display .display-result {
   display: flex;
   justify-content: flex-end;
-}
-
-.display .display-result p {
-  font-size: 2.5rem;
   font-weight: bold;
 }
 

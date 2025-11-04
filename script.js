@@ -1,8 +1,9 @@
 // math variables
 let firstNum = ``;
-let secondNum = ``;
 let clickedOperator = ``;
-let result = ``;
+let secondNum = ``;
+let result = `0`;
+const maxNumber = 999999999999;
 
 // buttons variables
 const allBtns = document.querySelectorAll(`button`);
@@ -11,14 +12,10 @@ const operatorBtn = document.querySelectorAll(`.operator`);
 const deleteBtn = document.getElementById(`btnDel`);
 const clearBtn = document.getElementById(`btnClear`);
 const resultBtn = document.getElementById(`btnResult`);
-const firstNumDisplay = document.getElementById(`first-num`);
-const secondNumDisplay = document.getElementById(`second-num`);
-const operatorDisplay = document.getElementById(`operator`);
-const resultDisplay = document.getElementById(`display-text-result`);
+const operationDisplay = document.getElementById(`display-operation`);
+const resultDisplay = document.getElementById(`display-result`);
 
-firstNumDisplay.textContent = firstNum;
-secondNumDisplay.textContent = secondNum;
-operatorDisplay.textContent = clickedOperator;
+operationDisplay.textContent = ``;
 resultDisplay.textContent = result;
 
 // basic math functions
@@ -58,7 +55,7 @@ function operate(num1, operator, num2) {
   }
 }
 
-// event listeners
+// style buttons on click
 allBtns.forEach((btn) => {
   btn.addEventListener(`mousedown`, () => {
     btn.style.backgroundColor = `#2d2371`;
@@ -68,63 +65,65 @@ allBtns.forEach((btn) => {
   });
 });
 
-numberBtn.forEach((number) => {
-  number.addEventListener(`click`, () => {
-    if (firstNum === ``) {
-      firstNum += number.value;
-      firstNumDisplay.textContent = firstNum;
-      return;
-    }
-    if (firstNum !== ``) {
-      secondNum += number.value;
-      secondNumDisplay.textContent = secondNum;
-    }
-  });
+// write numbers
+numberBtn.forEach((btn) => {
+  btn.addEventListener(`click`, () => writeNumber(btn.textContent));
 });
 
-operatorBtn.forEach((operator) => {
-  operator.addEventListener(`click`, () => {
-    if (firstNum) {
-      firstNumDisplay.textContent = firstNum;
-    }
-    if (secondNum) {
-      displayResult();
-      newOperation();
-    }
-    clickedOperator = operator.value;
-    operatorDisplay.textContent = clickedOperator;
-  });
+function writeNumber(number) {
+  if (resultDisplay.textContent === `0`) resultDisplay.textContent = ``;
+  resultDisplay.textContent += number;
+}
+
+// delete numbers
+deleteBtn.addEventListener(`click`, deleteNumber);
+
+function deleteNumber() {
+  if (resultDisplay.textContent === `0`) return;
+  if (parseInt(resultDisplay.textContent) <= 9) {
+    return (resultDisplay.textContent = `0`);
+  } else {
+    resultDisplay.textContent = resultDisplay.textContent
+      .toString()
+      .slice(0, -1);
+  }
+}
+
+// write operator
+operatorBtn.forEach((btn) => {
+  btn.addEventListener(`click`, () => writeOperator(btn.textContent));
 });
 
-resultBtn.addEventListener(`click`, displayResult);
+function writeOperator(operator) {
+  if (clickedOperator !== ``) {
+    displayResult();
+    firstNum = resultDisplay.textContent;
+    clickedOperator = operator;
+    operationDisplay.textContent = `${firstNum}${clickedOperator}`;
+    resultDisplay.textContent = ``;
+  }
+}
 
+// clear all
 clearBtn.addEventListener(`click`, resetCalculator);
 
-// functions
-function newOperation() {
-  firstNum = result;
-  firstNumDisplay.textContent = firstNum;
-  secondNum = ``;
-  secondNumDisplay.textContent = ``;
-  operatorDisplay.textContent = clickedOperator;
+function resetCalculator() {
+  window.location.reload();
 }
+
+// show result
+resultBtn.addEventListener(`click`, displayResult);
 
 function displayResult() {
   if (firstNum && clickedOperator && secondNum) {
-    if (secondNumDisplay.textContent.includes(`=`)) return;
-    secondNumDisplay.textContent += resultBtn.textContent;
+    operationDisplay.textContent = `${firstNum}${clickedOperator}${secondNum}=`;
     resultDisplay.textContent = roundResult(
       operate(firstNum, clickedOperator, secondNum)
     );
-    firstNum = resultDisplay.textContent;
   }
 }
 
 // helper functions
 function roundResult(number) {
   return Math.round(number * 1000) / 1000;
-}
-
-function resetCalculator() {
-  window.location.reload();
 }
