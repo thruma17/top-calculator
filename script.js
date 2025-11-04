@@ -2,9 +2,7 @@
 let firstNum = ``;
 let secondNum = ``;
 let clickedOperator = ``;
-
-const DEFAULT_RESULT = 0;
-let result = DEFAULT_RESULT;
+let result = ``;
 
 // buttons variables
 const allBtns = document.querySelectorAll(`button`);
@@ -72,36 +70,21 @@ allBtns.forEach((btn) => {
 
 numberBtn.forEach((number) => {
   number.addEventListener(`click`, () => {
-    if (result === 0) {
-      if (clickedOperator === ``) {
-        firstNum += number.value;
-        firstNumDisplay.textContent = firstNum;
-        if (firstNum > 99999) {
-          firstNumDisplay.textContent = `ERROR`;
-        }
-      } else {
-        secondNum += number.value;
-        secondNumDisplay.textContent = secondNum;
-        if (secondNum > 99999) {
-          secondNumDisplay.textContent = `ERROR`;
-        }
-      }
-    } else {
-      result = 0;
-      resultDisplay.textContent = `0`;
+    if (firstNum === ``) {
       firstNum += number.value;
       firstNumDisplay.textContent = firstNum;
-      if (firstNum > 99999) {
-        firstNumDisplay.textContent = `ERROR`;
-      }
+      return;
+    }
+    if (firstNum !== ``) {
+      secondNum += number.value;
+      secondNumDisplay.textContent = secondNum;
     }
   });
 });
 
 operatorBtn.forEach((operator) => {
   operator.addEventListener(`click`, () => {
-    if (firstNum === ``) {
-      firstNum = result;
+    if (firstNum) {
       firstNumDisplay.textContent = firstNum;
     }
     if (secondNum) {
@@ -128,9 +111,12 @@ function newOperation() {
 
 function displayResult() {
   if (firstNum && clickedOperator && secondNum) {
+    if (secondNumDisplay.textContent.includes(`=`)) return;
+    secondNumDisplay.textContent += resultBtn.textContent;
     resultDisplay.textContent = roundResult(
       operate(firstNum, clickedOperator, secondNum)
     );
+    firstNum = resultDisplay.textContent;
   }
 }
 
