@@ -18,10 +18,10 @@ const secondNumDisplay = document.getElementById(`second-num`);
 const operatorDisplay = document.getElementById(`operator`);
 const resultDisplay = document.getElementById(`display-text-result`);
 
-firstNumDisplay.textContent = ``;
-secondNumDisplay.textContent = ``;
-operatorDisplay.textContent = ``;
-resultDisplay.textContent = `0`;
+firstNumDisplay.textContent = firstNum;
+secondNumDisplay.textContent = secondNum;
+operatorDisplay.textContent = clickedOperator;
+resultDisplay.textContent = result;
 
 // basic math functions
 function add(a, b) {
@@ -42,6 +42,8 @@ function divide(a, b) {
 
 // calculator operation function
 function operate(num1, operator, num2) {
+  num1 = Number(num1);
+  num2 = Number(num2);
   switch (operator) {
     case `+`:
       return add(num1, num2);
@@ -124,28 +126,19 @@ function newOperation() {
   operatorDisplay.textContent = clickedOperator;
 }
 
-function clearOperation() {
-  firstNum = ``;
-  firstNumDisplay.textContent = ``;
-  secondNum = ``;
-  secondNumDisplay.textContent = ``;
-  operatorDisplay.textContent = ``;
-}
-
-function resetCalculator() {
-  window.location.reload();
-}
-
 function displayResult() {
   if (firstNum && clickedOperator && secondNum) {
-    result = operate(parseInt(firstNum), clickedOperator, parseInt(secondNum));
-    roundResult(result);
-    resultDisplay.textContent = result;
-    clearOperation();
+    resultDisplay.textContent = roundResult(
+      operate(firstNum, clickedOperator, secondNum)
+    );
   }
 }
 
 // helper functions
 function roundResult(number) {
-  Math.round(number * 1000) / 1000;
+  return Math.round(number * 1000) / 1000;
+}
+
+function resetCalculator() {
+  window.location.reload();
 }

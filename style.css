@@ -46,6 +46,7 @@ body {
 
 .display .display-operation {
   display: flex;
+  justify-content: flex-end;
 }
 
 .display .display-operation p {
