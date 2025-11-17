@@ -8,6 +8,7 @@ const maxNumber = 999999999999;
 // buttons variables
 const allBtns = document.querySelectorAll(`button`);
 const numberBtn = document.querySelectorAll(`.number`);
+const decimalBtn = document.getElementById(`btnDecimal`);
 const operatorBtn = document.querySelectorAll(`.operator`);
 const deleteBtn = document.getElementById(`btnDel`);
 const clearBtn = document.getElementById(`btnClear`);
@@ -87,6 +88,14 @@ function deleteNumber() {
       .toString()
       .slice(0, -1);
   }
+}
+
+// allow decimals
+decimalBtn.addEventListener(`click`, decimalNumber);
+
+function decimalNumber() {
+  if (resultDisplay.textContent.includes(`,`)) return;
+  resultDisplay.textContent += `,`;
 }
 
 // write operator
