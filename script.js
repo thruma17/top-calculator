@@ -79,6 +79,10 @@ function writeNumber(number) {
   if (bottomDisplay.textContent < maxNumber) {
     bottomDisplay.textContent += number;
     currentNum = bottomDisplay.textContent;
+    if (bottomDisplay.textContent.includes(`.`)) {
+      bottomDisplay.textContent = roundNumber(bottomDisplay.textContent);
+      currentNum = roundNumber(currentNum);
+    }
     logOperation();
   }
 }
@@ -123,7 +127,7 @@ function writeOperator(operator) {
   if (clickedOperator !== ``) {
     secondNum = currentNum;
     currentNum = ``;
-    result = roundResult(operate(firstNum, clickedOperator, secondNum));
+    result = roundNumber(operate(firstNum, clickedOperator, secondNum));
     logOperation();
     secondNum = ``;
     clickedOperator = operator;
@@ -160,7 +164,7 @@ function displayResult() {
       alert(`REALLY???\nYou can't divide by 0!`);
       resetCalculator();
     }
-    result = roundResult(operate(firstNum, clickedOperator, secondNum));
+    result = roundNumber(operate(firstNum, clickedOperator, secondNum));
     logOperation();
     currentNum = result.toString();
     firstNum = currentNum;
@@ -194,7 +198,7 @@ function convertOperator(keyboard) {
 }
 
 // helper functions
-function roundResult(number) {
+function roundNumber(number) {
   return Math.round(number * 1000) / 1000;
 }
 
