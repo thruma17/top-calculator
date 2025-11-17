@@ -104,6 +104,9 @@ decimalBtn.addEventListener(`click`, decimalNumber);
 
 function decimalNumber() {
   if (bottomDisplay.textContent.includes(`.`)) return;
+  if (!clickedOperator) {
+    topDisplay.textContent = ``;
+  }
   if (bottomDisplay.textContent === `0` || bottomDisplay.textContent === ``) {
     return (bottomDisplay.textContent = `0.`);
   }
@@ -159,14 +162,35 @@ function displayResult() {
     }
     result = roundResult(operate(firstNum, clickedOperator, secondNum));
     logOperation();
-    currentNum = result;
-    firstNum = result;
+    currentNum = result.toString();
+    firstNum = currentNum;
     clickedOperator = ``;
     secondNum = ``;
     topDisplay.textContent = `${firstNum}${clickedOperator}`;
     bottomDisplay.textContent = ``;
   }
   logOperation();
+}
+
+// add keyboard support
+window.addEventListener(`keydown`, keyPress);
+
+function keyPress(e) {
+  if (e.key === ` `) return;
+  if (e.key >= 0 && e.key <= 9) writeNumber(e.key);
+  if (e.key === `.`) decimalNumber();
+  if (e.key === "=" || e.key === "Enter") displayResult();
+  if (e.key === "Backspace") deleteNumber();
+  if (e.key === "Escape") resetCalculator();
+  if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/")
+    writeOperator(convertOperator(e.key));
+}
+
+function convertOperator(keyboard) {
+  if (keyboard === "/") return "÷";
+  if (keyboard === "*") return "×";
+  if (keyboard === "-") return "−";
+  if (keyboard === "+") return "+";
 }
 
 // helper functions
