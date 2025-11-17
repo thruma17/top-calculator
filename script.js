@@ -1,4 +1,7 @@
+console.clear();
+
 // math variables
+let currentNum = ``;
 let firstNum = ``;
 let clickedOperator = ``;
 let secondNum = ``;
@@ -44,10 +47,10 @@ function operate(num1, operator, num2) {
     case `+`:
       return add(num1, num2);
       break;
-    case `-`:
+    case `−`:
       return subtract(num1, num2);
       break;
-    case `x`:
+    case `×`:
       return multiply(num1, num2);
       break;
     case `÷`:
@@ -74,6 +77,8 @@ numberBtn.forEach((btn) => {
 function writeNumber(number) {
   if (resultDisplay.textContent === `0`) resultDisplay.textContent = ``;
   resultDisplay.textContent += number;
+  currentNum = resultDisplay.textContent;
+  logOperation();
 }
 
 // delete numbers
@@ -87,15 +92,18 @@ function deleteNumber() {
     resultDisplay.textContent = resultDisplay.textContent
       .toString()
       .slice(0, -1);
+    currentNum = resultDisplay.textContent;
   }
+  logOperation();
 }
 
 // allow decimals
 decimalBtn.addEventListener(`click`, decimalNumber);
 
 function decimalNumber() {
-  if (resultDisplay.textContent.includes(`,`)) return;
-  resultDisplay.textContent += `,`;
+  if (operationDisplay.textContent.includes(`,`)) return;
+  operationDisplay.textContent += `,`;
+  logOperation();
 }
 
 // write operator
@@ -105,12 +113,21 @@ operatorBtn.forEach((btn) => {
 
 function writeOperator(operator) {
   if (clickedOperator !== ``) {
-    displayResult();
-    firstNum = resultDisplay.textContent;
+    secondNum = currentNum;
+    currentNum = ``;
+    result = roundResult(operate(firstNum, clickedOperator, secondNum));
     clickedOperator = operator;
+    operationDisplay.textContent = `${result}${clickedOperator}`;
+    resultDisplay.textContent = ``;
+    firstNum = result;
+  } else {
+    firstNum = currentNum;
+    clickedOperator = operator;
+    currentNum = ``;
     operationDisplay.textContent = `${firstNum}${clickedOperator}`;
     resultDisplay.textContent = ``;
   }
+  logOperation();
 }
 
 // clear all
@@ -124,15 +141,29 @@ function resetCalculator() {
 resultBtn.addEventListener(`click`, displayResult);
 
 function displayResult() {
+  secondNum = currentNum;
+  currentNum = ``;
   if (firstNum && clickedOperator && secondNum) {
-    operationDisplay.textContent = `${firstNum}${clickedOperator}${secondNum}=`;
-    resultDisplay.textContent = roundResult(
-      operate(firstNum, clickedOperator, secondNum)
-    );
+    result = roundResult(operate(firstNum, clickedOperator, secondNum));
+    currentNum = result;
+    firstNum = ``;
+    clickedOperator = ``;
+    secondNum = ``;
+    operationDisplay.textContent = `${result}${clickedOperator}`;
+    resultDisplay.textContent = ``;
+    result = ``;
   }
+  logOperation();
 }
 
 // helper functions
 function roundResult(number) {
   return Math.round(number * 1000) / 1000;
+}
+
+// logs
+function logOperation() {
+  console.log(
+    `currentNum: ${currentNum}, firstNum: ${firstNum}, operator: ${clickedOperator}, secondNum: ${secondNum}, result: ${result}.`
+  );
 }
