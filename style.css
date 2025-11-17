@@ -39,10 +39,12 @@ body {
 }
 
 .display .display-text p {
+  min-height: 50px;
   margin: 0;
   padding: 5px 10px;
   font-size: 2rem;
   font-weight: lighter;
+  text-align: end;
 }
 
 .display .display-operation {

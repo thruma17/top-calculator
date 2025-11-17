@@ -1,7 +1,7 @@
 console.clear();
 
 // math variables
-let currentNum = ``;
+let currentNum = `0`;
 let firstNum = ``;
 let clickedOperator = ``;
 let secondNum = ``;
@@ -16,11 +16,11 @@ const operatorBtn = document.querySelectorAll(`.operator`);
 const deleteBtn = document.getElementById(`btnDel`);
 const clearBtn = document.getElementById(`btnClear`);
 const resultBtn = document.getElementById(`btnResult`);
-const operationDisplay = document.getElementById(`display-operation`);
-const resultDisplay = document.getElementById(`display-result`);
+const topDisplay = document.getElementById(`display-top`);
+const bottomDisplay = document.getElementById(`display-bottom`);
 
-operationDisplay.textContent = ``;
-resultDisplay.textContent = result;
+topDisplay.textContent = `${firstNum}${clickedOperator}`;
+bottomDisplay.textContent = currentNum;
 
 // basic math functions
 function add(a, b) {
@@ -33,9 +33,6 @@ function multiply(a, b) {
   return a * b;
 }
 function divide(a, b) {
-  if (parseInt(b) === 0) {
-    return `REALLY???`;
-  }
   return a / b;
 }
 
@@ -75,24 +72,29 @@ numberBtn.forEach((btn) => {
 });
 
 function writeNumber(number) {
-  if (resultDisplay.textContent === `0`) resultDisplay.textContent = ``;
-  resultDisplay.textContent += number;
-  currentNum = resultDisplay.textContent;
-  logOperation();
+  if (!clickedOperator) {
+    topDisplay.textContent = ``;
+  }
+  if (bottomDisplay.textContent === `0`) bottomDisplay.textContent = ``;
+  if (bottomDisplay.textContent < maxNumber) {
+    bottomDisplay.textContent += number;
+    currentNum = bottomDisplay.textContent;
+    logOperation();
+  }
 }
 
 // delete numbers
 deleteBtn.addEventListener(`click`, deleteNumber);
 
 function deleteNumber() {
-  if (resultDisplay.textContent === `0`) return;
-  if (parseInt(resultDisplay.textContent) <= 9) {
-    return (resultDisplay.textContent = `0`);
+  if (bottomDisplay.textContent === `0`) return;
+  if (parseInt(bottomDisplay.textContent) <= 9) {
+    return (bottomDisplay.textContent = `0`);
   } else {
-    resultDisplay.textContent = resultDisplay.textContent
+    bottomDisplay.textContent = bottomDisplay.textContent
       .toString()
       .slice(0, -1);
-    currentNum = resultDisplay.textContent;
+    currentNum = bottomDisplay.textContent;
   }
   logOperation();
 }
@@ -101,8 +103,11 @@ function deleteNumber() {
 decimalBtn.addEventListener(`click`, decimalNumber);
 
 function decimalNumber() {
-  if (operationDisplay.textContent.includes(`,`)) return;
-  operationDisplay.textContent += `,`;
+  if (bottomDisplay.textContent.includes(`.`)) return;
+  if (bottomDisplay.textContent === `0` || bottomDisplay.textContent === ``) {
+    return (bottomDisplay.textContent = `0.`);
+  }
+  bottomDisplay.textContent += `.`;
   logOperation();
 }
 
@@ -116,16 +121,19 @@ function writeOperator(operator) {
     secondNum = currentNum;
     currentNum = ``;
     result = roundResult(operate(firstNum, clickedOperator, secondNum));
+    logOperation();
+    secondNum = ``;
     clickedOperator = operator;
-    operationDisplay.textContent = `${result}${clickedOperator}`;
-    resultDisplay.textContent = ``;
+    topDisplay.textContent = `${result}${clickedOperator}`;
+    bottomDisplay.textContent = ``;
     firstNum = result;
+    result = `0`;
   } else {
     firstNum = currentNum;
     clickedOperator = operator;
     currentNum = ``;
-    operationDisplay.textContent = `${firstNum}${clickedOperator}`;
-    resultDisplay.textContent = ``;
+    topDisplay.textContent = `${firstNum}${clickedOperator}`;
+    bottomDisplay.textContent = currentNum;
   }
   logOperation();
 }
@@ -141,17 +149,22 @@ function resetCalculator() {
 resultBtn.addEventListener(`click`, displayResult);
 
 function displayResult() {
+  if (firstNum === `` || !clickedOperator) return;
   secondNum = currentNum;
   currentNum = ``;
   if (firstNum && clickedOperator && secondNum) {
+    if (clickedOperator === `÷` && secondNum === `0`) {
+      alert(`REALLY???\nYou can't divide by 0!`);
+      resetCalculator();
+    }
     result = roundResult(operate(firstNum, clickedOperator, secondNum));
+    logOperation();
     currentNum = result;
-    firstNum = ``;
+    firstNum = result;
     clickedOperator = ``;
     secondNum = ``;
-    operationDisplay.textContent = `${result}${clickedOperator}`;
-    resultDisplay.textContent = ``;
-    result = ``;
+    topDisplay.textContent = `${firstNum}${clickedOperator}`;
+    bottomDisplay.textContent = ``;
   }
   logOperation();
 }
