@@ -92,7 +92,10 @@ deleteBtn.addEventListener(`click`, deleteNumber);
 
 function deleteNumber() {
   if (bottomDisplay.textContent === `0`) return;
-  if (parseInt(bottomDisplay.textContent) <= 9) {
+  if (
+    parseInt(bottomDisplay.textContent) >= 1 &&
+    parseInt(bottomDisplay.textContent) <= 9
+  ) {
     return (bottomDisplay.textContent = `0`);
   } else {
     bottomDisplay.textContent = bottomDisplay.textContent
