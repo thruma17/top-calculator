@@ -164,7 +164,7 @@ function displayResult() {
   currentNum = ``;
   if (firstNum && clickedOperator && secondNum) {
     if (clickedOperator === `÷` && secondNum === `0`) {
-      alert(`REALLY???\nYou can't divide by 0!`);
+      alert(`SUL SERIO???\nNon puoi dividere per 0!`);
       resetCalculator();
     }
     result = roundNumber(operate(firstNum, clickedOperator, secondNum));
